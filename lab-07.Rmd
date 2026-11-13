@@ -73,7 +73,8 @@ median = 56093.31 + (-30669.94) * sharewomen
 # Exercise 4: Consider a categorical variable instead 
 
 ```{r}
-#your code here
+college_recent_grads %>%
+    mutate(engineering = if_else(major_category == "Engineering", "Engineering", "Other"))
 ```
 
 *Your explanation*
