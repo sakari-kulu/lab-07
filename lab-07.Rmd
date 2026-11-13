@@ -60,6 +60,12 @@ model_grads <- linear_reg() %>%
   set_engine("lm") %>%
   fit(median ~ sharewomen, data = college_recent_grads)
   tidy(model_grads)
+  
+  share_aug <- augment(model_grads, new_data = college_recent_grads)
+  ggplot(share_aug, aes(x = .pred, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Predicted median earnings", y = "Residuals")
 ```
 
 median = 56093.31 + (-30669.94) * sharewomen
