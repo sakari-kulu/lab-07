@@ -26,7 +26,9 @@ glimpse(college_grad_df)
 # Exercise 1: Exploratory Data Analysis
 
 ```{r}
-#your code here
+college_recent_grads %>%
+ggplot(aes(x= median)) + geom_histogram(binwidth = 2500) +
+  scale_x_continuous(labels = dollar)
 ```
 
 *Your explanation*
@@ -35,18 +37,32 @@ glimpse(college_grad_df)
 # Exercise 2: Exploring relationship
 
 ```{r}
-#your code here
+college_recent_grads %>%
+  filter(!is.na(sharewomen), !is.na(median)) %>%
+ggplot(aes(x= sharewomen, y= median)) + geom_point(alpha = 1) +
+  geom_smooth(method= lm, se = FALSE) +
+  labs(
+    title= "How median price changes with sharewomen",
+    x= "median ($)",
+    y= "sharewomen"
+    ) %>%
+  scale_y_continuous(labels = dollar)
+
 ```
 
-*Your explanation*
+The response variable is the median, the explanatory variable is sharewomen.
+As sharewomen increases, median decreases.
 
 # Exercise 3: Fit and interpret a numerical predictor
 
 ```{r}
-#your code here
+model_grads <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(median ~ sharewomen, data = college_recent_grads)
+  tidy(model_grads)
 ```
 
-*Your explanation*
+median = 56093.31 + (-30669.94) * sharewomen
 
 # Exercise 4: Consider a categorical variable instead 
 
