@@ -75,6 +75,11 @@ median = 56093.31 + (-30669.94) * sharewomen
 ```{r}
 college_recent_grads %>%
     mutate(engineering = if_else(major_category == "Engineering", "Engineering", "Other"))
+
+engineering_model <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(median ~ engineering, data = college_recent_grads)
+  tidy(engineering_model)
 ```
 
 *Your explanation*
